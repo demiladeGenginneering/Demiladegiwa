@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demilade Giwa - Engineering & Comp Sci Enthusiast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+        LEARNER'S GUIDE & CUSTOMIZATION
+        ============================================
+        Welcome! This website is designed to be easy to customize.
+        You can change the main look and feel by editing the variables below.
+        No need to dig through the rest of the code unless you want to!
+
+        --accent-color: The main highlight color (buttons, links).
+        --accent-color-dark: A darker shade for hover effects.
+        --accent-color-light: A lighter shade for gradients.
+        --accent-color-subtle: A softer version for text.
+        --blob-blur: How blurry the background shapes are. More = softer.
+        --blob-speed-1, 2, 3, 4: How long each blob takes to complete one animation cycle. Lower number = faster.
+        */
+        :root {
+            --accent-color: #F97316;         /* Orange 500 */
+            --accent-color-dark: #EA580C;    /* Orange 600 */
+            --accent-color-light: #FBBF24;   /* Amber 400 */
+            --accent-color-subtle: #FB923C;  /* Orange 400 */
+            
+            --blob-color: rgba(249, 115, 22, 0.15);
+            --blob-blur: 120px;
+            
+            --blob-speed-1: 25s;
+            --blob-speed-2: 28s;
+            --blob-speed-3: 22s;
+            --blob-speed-4: 31s;
+        }
+
+        /* --- Basic Setup --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #E2E8F0;
+            scroll-behavior: smooth;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* This pseudo-element creates the soft glow at the top of the page */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -5;
+            background: radial-gradient(ellipse at top, rgba(249, 115, 22, 0.1) 0%, rgba(0,0,0,0) 60%);
+            pointer-events: none; /* Makes it unclickable */
+        }
+
+        /* --- Animated Blob Background --- */
+        .blob-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -10;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--blob-color);
+            filter: blur(var(--blob-blur));
+            animation: move 30s infinite ease-in-out;
+        }
+
+        .blob-1 {
+            width: 40vw; height: 40vw;
+            top: -10vh; left: -15vw;
+            animation-duration: var(--blob-speed-1);
+        }
+
+        .blob-2 {
+            width: 50vw; height: 50vw;
+            bottom: -20vh; right: -25vw;
+            animation-duration: var(--blob-speed-2);
+            animation-delay: -10s;
+        }
+
+        .blob-3 {
+            width: 35vw; height: 35vw;
+            top: 20vh; right: -15vw;
+            animation-duration: var(--blob-speed-3);
+        }
+
+        .blob-4 {
+            width: 30vw; height: 30vw;
+            bottom: 10vh; left: -10vw;
+            animation-duration: var(--blob-speed-4);
+            animation-delay: -5s;
+        }
+
+        /* Keyframes define the animation steps */
+        @keyframes move {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(20vw, 10vh) scale(1.2) rotate(180deg); }
+            100% { transform: translate(0, 0) scale(1) rotate(360deg); }
+        }
+
+        /* --- Text & General Styles --- */
+        .gradient-text {
+            background: linear-gradient(90deg, var(--accent-color), var(--accent-color-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- Card & Component Styles --- */
+        .card-bg {
+            background-color: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(55, 65, 81, 0.5);
+        }
+
+        .skill-tag {
+            background-color: rgba(55, 65, 81, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background-color: var(--accent-color-dark);
+            transform: translateY(-2px);
+        }
+
+        /* --- Timeline Styles --- */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            border: 2px solid #000;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: -16px;
+            top: 5px;
+            bottom: 0;
+            width: 2px;
+            background-color: rgba(55, 65, 81, 0.5);
+        }
+
+        /* --- Fade-in Animation on Scroll --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0; /* Start invisible */
+        }
+        .fade-in-delay-1 { animation-delay: 0.2s; }
+        .fade-in-delay-2 { animation-delay: 0.4s; }
+        .fade-in-delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- These divs create the animated shapes in the background -->
+    <div class="blob-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+    </div>
+
+    <!-- Header: The navigation bar at the top -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-lg border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold tracking-tighter">Demilade Giwa</a>
+            <nav id="desktop-nav" class="hidden md:flex items-center space-x-8">
+                <a href="#experience" class="text-gray-400 hover:text-white transition-colors">Experience</a>
+                <a href="#education" class="text-gray-400 hover:text-white transition-colors">Education</a>
+                <a href="#skills" class="text-gray-400 hover:text-white transition-colors">Skills</a>
+                <a href="#contact" class="bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition-colors" style="background-color: var(--accent-color-dark);">Contact</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu: Hidden by default, shown on small screens when the button is clicked -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#experience" class="block py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Experience</a>
+            <a href="#education" class="block py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Education</a>
+            <a href="#skills" class="block py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Skills</a>
+            <a href="#contact" class="block py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">Contact</a>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="pt-24">
+
+        <!-- Hero Section: The main introduction at the top of the page -->
+        <section id="hero" class="py-20 md:py-32">
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <div class="max-w-4xl mx-auto">
+                    <p class="fade-in text-orange-400 font-semibold mb-4 text-2xl md:text-3xl" style="color: var(--accent-color-subtle);">Engineering & Comp Sci Enthusiast | IB Student | SHAD '25</p>
+                    <p class="fade-in fade-in-delay-2 max-w-2xl mx-auto text-lg md:text-xl text-gray-400">
+                        A passionate and driven IB student with a love for computer science, engineering, and leadership. Eager to apply my skills to solve real-world problems and make a positive impact.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section: A timeline of work and activities -->
+        <section id="experience" class="py-24">
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold tracking-tight">Experience</h2>
+                    <p class="text-gray-400 mt-2 text-lg">A timeline of my activities and involvement.</p>
+                </div>
+                <div class="max-w-3xl mx-auto relative">
+                    <div class="timeline-line"></div>
+                    
+                    <div class="mb-12 timeline-item pl-8 fade-in">
+                        <div class="card-bg p-6 rounded-xl shadow-lg">
+                            <p class="text-sm text-gray-400 mb-1">July 2024</p>
+                            <h3 class="text-xl font-bold text-white">STEAM Program Participant</h3>
+                            <p class="text-md text-orange-400 font-semibold" style="color: var(--accent-color-subtle);">SHAD Canada</p>
+                            <p class="text-gray-300 mt-3">Selected as one of five recipients of the Black Boys Code full scholarship to participate in the Shad STEAM summer program. The program equips high-school students with the skills, mindset, and confidence to become leaders of STEAM in a rapidly changing world.</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-12 timeline-item pl-8 fade-in">
+                        <div class="card-bg p-6 rounded-xl shadow-lg">
+                             <p class="text-sm text-gray-400 mb-1">2021 - Present</p>
+                            <h3 class="text-xl font-bold text-white">Intern</h3>
+                            <p class="text-md text-orange-400 font-semibold" style="color: var(--accent-color-subtle);">REDEEMED CHRISTIAN CHURCH OF GOD</p>
+                            <p class="text-gray-300 mt-3">
+                                Spearheaded recording & live broadcasting of services alongside a team of 10+ on a weekly basis.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="py-24">
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold tracking-tight">Education</h2>
+                    <p class="text-gray-400 mt-2 text-lg">My academic journey.</p>
+                </div>
+                <div class="max-w-2xl mx-auto">
+                    <div class="card-bg p-8 rounded-xl shadow-lg fade-in">
+                        <h3 class="text-2xl font-bold text-white">Saint John High School</h3>
+                        <p class="text-lg text-orange-400 font-semibold mt-1" style="color: var(--accent-color-subtle);">International Baccalaureate (IB) Diploma Programme Candidate</p>
+                        <p class="text-gray-400 mt-2">2023 - 2025</p>
+                        <p class="text-gray-300 mt-4">Activities: Grad Class Executive, Key Club.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-24">
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold tracking-tight">Key Skills</h2>
+                    <p class="text-gray-400 mt-2 text-lg">A showcase of my key abilities.</p>
+                </div>
+                <div class="max-w-4xl mx-auto">
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-center">
+                        <div class="skill-tag p-4 rounded-lg fade-in">Python</div>
+                        <div class="skill-tag p-4 rounded-lg fade-in fade-in-delay-1">Leadership</div>
+                        <div class="skill-tag p-4 rounded-lg fade-in fade-in-delay-2">Market Research</div>
+                        <div class="skill-tag p-4 rounded-lg fade-in fade-in-delay-3">Computer Literacy</div>
+                        <div class="skill-tag p-4 rounded-lg fade-in">Public Speaking</div>
+                        <div class="skill-tag p-4 rounded-lg fade-in fade-in-delay-1">Photography</div>
+                        <div class="skill-tag p-4 rounded-lg fade-in fade-in-delay-2">Motion Graphics</div>
+                        <div class="skill-tag p-4 rounded-lg fade-in fade-in-delay-3">Team Leadership</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24">
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center max-w-2xl mx-auto">
+                    <h2 class="text-4xl font-bold tracking-tight">Let's Connect</h2>
+                    <p class="text-gray-400 mt-3 text-lg mb-8">
+                        I'm always open to converse on any opportunities aswell as any of my skills and interests. Feel free to reach out.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="mailto:demiladegiw@gmail.com" class="inline-block bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105 w-full sm:w-auto" style="background-color: var(--accent-color-dark);">
+                            Email Me
+                        </a>
+                        <a href="https://www.linkedin.com/in/demiladegiwa" target="_blank" class="inline-block bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105 w-full sm:w-auto">
+                            LinkedIn Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-gray-800 relative z-10">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-500">
+            <p>&copy; 2024 Demilade Giwa.</p>
+            <p class="text-sm mt-2">Website Developement aided with google gemini.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+
+        // --- Fade-in Animation on Scroll ---
+        // This code watches for elements with the class "fade-in".
+        // When they scroll into view, it adds a "visible" class to trigger the animation.
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Find all elements with the "fade-in" class and tell the observer to watch them.
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // --- Mobile Menu Toggle ---
+        // This makes the hamburger menu button work on small screens.
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (menuButton) {
+            menuButton.addEventListener('click', () => {
+                // Toggles the "hidden" class on the mobile menu to show/hide it.
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // --- Smooth Scrolling for Anchor Links ---
+        // This makes the page scroll smoothly when you click a button.
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent the default jump-to-anchor behavior.
+                
+                const targetElement = document.querySelector(this.getAttribute('href'));
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth' // The magic part!
+                    });
+                }
+                // Automatically close the mobile menu after clicking a link.
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
